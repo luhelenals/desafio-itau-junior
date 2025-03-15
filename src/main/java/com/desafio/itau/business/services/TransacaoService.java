@@ -35,21 +35,28 @@ public class TransacaoService {
         }
 
         listaTransacoes.add(dto);
+
+        log.info("Transação adicionada com sucesso:\n" + dto);
     }
 
     // Método para limpar todas as transações
     public void limparTransacoes() {
 
-        log.info("Limpando todas as transações");
+        log.info("Iniciando processamento para limpar todas as transações");
 
         listaTransacoes.clear();
+
+        log.info("Transações deletadas com sucesso");
     }
 
     // Método para retornar todas as transações em um intervalo de tempo
     public List<TransacaoRequestDTO> buscarTransacoes(Integer intervaloBusca) {
+        log.info("Iniciada busca por transações do intervalo de " + intervaloBusca + " segundos");
 
         // Horário mínimo para busca
         OffsetDateTime dataHoraIntervalo = OffsetDateTime.now().minusSeconds(intervaloBusca);
+
+        log.info("Transações encontradas com sucesso");
 
         return listaTransacoes.stream().filter(
                 transacoes -> transacoes.dataHora().isAfter(dataHoraIntervalo)).toList();
