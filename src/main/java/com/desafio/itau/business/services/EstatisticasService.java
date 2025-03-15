@@ -22,10 +22,12 @@ public class EstatisticasService {
         // Mapear todos os atributos "valor" da lista de transações para double
         DoubleSummaryStatistics estatisticasTransacoes = transacoes.stream().mapToDouble(TransacaoRequestDTO::valor).summaryStatistics();
 
-        return new EstatisticasResponseDTO(estatisticasTransacoes.getCount(),
+        return new EstatisticasResponseDTO(
+                estatisticasTransacoes.getCount(),
                 estatisticasTransacoes.getSum(),
                 estatisticasTransacoes.getAverage(),
-                estatisticasTransacoes.getMin(),
-                estatisticasTransacoes.getMax());
+                estatisticasTransacoes.getCount()!=0 ? estatisticasTransacoes.getMin() : 0,
+                estatisticasTransacoes.getCount()!=0 ? estatisticasTransacoes.getMax() : 0
+        );
     }
 }
